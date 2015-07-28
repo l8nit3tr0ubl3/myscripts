@@ -107,7 +107,7 @@ ltc() {
 	cd litecoin
 	./autogen.sh
 	./configure --with-incompatible-bdb
-	make
+	make -j 3
 	cd /src
 	cp litecoind /usr/bin/litecoin
 	mkdir ~/.litecoin
@@ -133,7 +133,7 @@ btc() {
 	cd bitcoin
 	./autogen.sh
 	./configure --with-incompatible-bdb
-	make
+	make -j 3
 	make install
 	bitcoind
 	echo "Now create your bitcoin.conf and enjoy :)"
