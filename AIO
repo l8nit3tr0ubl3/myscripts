@@ -109,7 +109,7 @@ ltc() {
 	./configure --with-incompatible-bdb
 	make -j 3
 	cd /src
-	cp litecoind /usr/bin/litecoin
+	sudo cp litecoind /usr/bin/litecoin
 	mkdir ~/.litecoin
 	echo rpcuser=litecoinrpc >> ~/.litecoin/litecoin.conf
 	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.litecoin/litecoin.conf
@@ -134,7 +134,8 @@ btc() {
 	./autogen.sh
 	./configure --with-incompatible-bdb
 	make -j 3
-	sudo make install
+	cd src
+	sudo cp bitcoind /usr/bin/bitcoind
 	bitcoind
 	echo "Now create your bitcoin.conf and enjoy :)"
 	ending
