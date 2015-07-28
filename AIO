@@ -134,11 +134,11 @@ dash() {
 	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
 	cd ~/	
 	git clone https://github.com/dashpay/dash.git
-	cd dashcoin
+	cd dash
 	./autogen.sh
 	./configure
 	make -j 3
-	cd ~/dashcoin/build/release/src
+	cd ~/dash/src
 	#sudo cp bitcoind /usr/bin/bitcoind
 	#sudo cp bitcoin-cli /usr/bin/bitcoin-cli
 	echo "Now run dashcoind and create dashcoin.conf and enjoy :)"
