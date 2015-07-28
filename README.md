@@ -14,8 +14,8 @@ UPDATE FUNCTIONS<br>
 <br>
 CRYPTOCOIN FUNCTIONS<br>
 -l=ltc (install litecoin daemon - NO ROOT/SUDO)<br>
--b=btc (install bitcoin daemon - NO ROOT/SUDO)<br>
--N=NOMP (install NOMP+BTC+LTC+DEPENDANCIES - DO NOT RUN AS ROOT)<br>
+-d=dash (install dashcoin daemon - NO ROOT/SUDO)<br>
+-N=NOMP (install NOMP+DASH+LTC+DEPENDANCIES - DO NOT RUN AS ROOT)<br>
 <br>
 NETWORK FUNCTIONS<br>
 -w=wifite (install wifite+reaver+pyrit+tshark+aircrack)<br>
@@ -27,6 +27,6 @@ MEDIA FUNCTIONS<br>
 -k=kodi (install kodi/xbmc)<br>
 <br>
 ---------------------------------------------------------------------------<br>
-example: sudo AIO -u -h -s -i -b -l -w -n -t -T -k -N<br>
+example: sudo AIO -u -h -s -i -d -l -w -n -t -T -k -N<br>
 ---------------------------------------------------------------------------<br>
 ---------------------------------------------------------------------------<br>
