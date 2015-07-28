@@ -22,7 +22,7 @@ usage() {
 	echo "CRYPTOCOIN FUNCTIONS"
 	echo "-l=ltc (install litecoin daemon - NO ROOT/SUDO)"
 	echo "-b=btc (install bitcoin daemon - NO ROOT/SUDO)"
-	echo "-N=NOMP (install NOMP+LTC+DEPENDANCIES)"
+	echo "-N=NOMP (install NOMP+LTC+BTC+DEPENDANCIES)"
 	echo ""
 	echo "NETWORK FUNCTIONS"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
@@ -252,7 +252,7 @@ fi
 nomp () {
 	if [[ $EUID -ne 0 ]]; then
 		echo "---------------------------------------------------------------------------"
-		echo "Installing NOMP+LTC+dependancies"
+		echo "Installing NOMP+LTC+BTC+dependancies"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
 		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
@@ -264,6 +264,7 @@ nomp () {
 		sudo make install
 		cd ~/
 		ltc
+		btc
 		cd ~/
 		echo "---------------------------------------------------------------------------"
 		echo "Now Installing NOMP"
