@@ -12,7 +12,7 @@ UPDATE FUNCTIONS<br>
 -u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)<br>
 -s=Small Update (just apt update and upgrade)<br>
 <br>
-CRYPTOCOIN FUNCTIONS
+CRYPTOCOIN FUNCTIONS<br>
 -l=ltc (install litecoin daemon - NO ROOT/SUDO)<br>
 -b=btc (install bitcoin daemon - NO ROOT/SUDO)<br>
 -N=NOMP (install NOMP+BTC+LTC+DEPENDANCIES - DO NOT RUN AS ROOT)<br>
