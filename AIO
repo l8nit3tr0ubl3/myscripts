@@ -134,7 +134,7 @@ btc() {
 	./autogen.sh
 	./configure --with-incompatible-bdb
 	make -j 3
-	make install
+	sudo make install
 	bitcoind
 	echo "Now create your bitcoin.conf and enjoy :)"
 	ending
