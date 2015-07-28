@@ -4,7 +4,7 @@ Any shell scripting ive done for linux ease of use
 AIO SCRIPT
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
-BASIC FUNCTIONS
+BASIC FUNCTIONS<br>
 -h or ?=Display this help screen
 -i=Install this script (for ease of use, just type AIO when done.)
 
