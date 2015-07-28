@@ -6,35 +6,37 @@
 
 usage() {
 	echo "---------------------------------------------------------------------------"
-	echo "Hello and welcome to L8nit3's All-In-One shell script."
+	echo "$(tput setaf 1)$(tput setab 7)Hello and welcome to L8nit3's All-In-One shell script.$(tput sgr 0)"
 	echo "---------------------------------------------------------------------------"
-	echo "PLEASE RUN AS ROOT/SUDO UNLESS WORKING WITH WALLETS!!!"
+	echo "$(tput setaf 1)PLEASE RUN AS ROOT/SUDO UNLESS WORKING WITH WALLETS!!!$(tput sgr 0)"
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
-	echo "BASIC FUNCTIONS"
+	echo "$(tput setaf 2)BASIC FUNCTIONS$(tput sgr 0)"
 	echo "-h or ?=Display this help screen"
 	echo "-i=Install this script (for ease of use, just type AIO when done.)"
 	echo ""
-	echo "UPDATE FUNCTIONS"
+	echo "$(tput setaf 2)UPDATE FUNCTIONS$(tput sgr 0)"
 	echo "-u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)"
 	echo "-s=Small Update (just apt update and upgrade)"
 	echo ""
-	echo "CRYPTOCOIN FUNCTIONS"
-	echo "-l=ltc (install litecoin daemon - NO ROOT/SUDO)"
-	echo "-b=btc (install bitcoin daemon - NO ROOT/SUDO)"
+	echo "$(tput setaf 2)CRYPTOCOIN FUNCTIONS$(tput sgr 0)"
+	echo "-l=ltc (install litecoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
+	echo "-d=dash (install dashcoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
 	echo "-N=NOMP (install NOMP+LTC+BTC+DEPENDANCIES)"
 	echo ""
-	echo "NETWORK FUNCTIONS"
+	echo "$(tput setaf 2)NETWORK FUNCTIONS$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
 	echo "-n=Network (install tightvnc+openssh-server+screen)"
 	echo "-t=teamviewer32 (install Teamviewer i386 edition)"
 	echo "-T=teamviewer64 (install Teamviewer amd64 edition)"
 	echo ""
-	echo "MEDIA FUNCTIONS"
+	echo "$(tput setaf 2)MEDIA FUNCTIONS$(tput sgr 0)"
 	echo "-k=kodi (install kodi/xbmc)"
 	echo ""
+	read -p "Press Enter to continue." -n1 -s
+	echo ""
 	echo "---------------------------------------------------------------------------"
-	echo "example: sudo AIO -u -h -s -i -b -l -w -n -t -T -k -N"
+	echo "example: sudo AIO -u -h -s -i -d -l -w -n -t -T -k -N"
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 }
@@ -122,24 +124,22 @@ ltc() {
 	echo "then run litecoin to start wallet"
 	ending
 }
-btc() {
+dash() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
-	echo "Now installing bitcoin daemon (command line only)"
+	echo "Now installing dashcoin daemon (command line only)"
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
-	cd ~/
-	git clone https://github.com/bitcoin/bitcoin.git
-	cd bitcoin
-	./autogen.sh
-	./configure --with-incompatible-bdb
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
+	cd ~/	
+	git clone https://github.com/dashcoin/dashcoin.git dashcoin
+	cd dashcoin
 	make -j 3
-	cd ~/bitcoin/src
-	sudo cp bitcoind /usr/bin/bitcoind
-	sudo cp bitcoin-cli /usr/bin/bitcoin-cli
-	echo "Now run bitcoind and create bitcoin.conf and enjoy :)"
+	cd ~/dashcoin/build/release/src
+	#sudo cp bitcoind /usr/bin/bitcoind
+	#sudo cp bitcoin-cli /usr/bin/bitcoin-cli
+	echo "Now run dashcoind and create dashcoin.conf and enjoy :)"
 	ending
 }
 wifite() {
@@ -255,7 +255,7 @@ fi
 nomp () {
 	if [[ $EUID -ne 0 ]]; then
 		echo "---------------------------------------------------------------------------"
-		echo "Installing NOMP+LTC+BTC+dependancies"
+		echo "Installing NOMP+LTC+DASH+dependancies"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
 		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
@@ -268,8 +268,8 @@ nomp () {
 		cd ~/
 		ltc
 		read -p "Check that /usr/bin/litecoin exists, then press enter." -n1 -s
-		btc
-		read -p "Check that /usr/bin/bitcoind exists, the press enter" -n1 -s
+		dash
+		read -p "Check that /usr/bin/dashcoind exists, the press enter" -n1 -s
 		cd ~/
 		echo "---------------------------------------------------------------------------"
 		echo "Now Installing NOMP"
@@ -278,7 +278,7 @@ nomp () {
 		cd nomp
 		npm update
 		echo "---------------------------------------------------------------------------"
-		echo "Finished Installing NOMP+REDIS+NODEJS+BTC+LTC"
+		echo "Finished Installing NOMP+REDIS+NODEJS+DASH+LTC"
 		echo "Please go to 'https://github.com/zone117x/node-open-mining-portal'"
 		echo "For instructions on editing the config files to suit your needs."
 		ending
@@ -290,7 +290,7 @@ nomp () {
 	fi
 }
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "khusnilbwtTN?:" opt; do
+while getopts "khusnilbdwtTN?:" opt; do
      case "$opt" in
         h) usage
            exit 0
@@ -322,7 +322,7 @@ while getopts "khusnilbwtTN?:" opt; do
            sleep 3
 	   exit 0
 	   ;;
-        b) btc
+        d) dash
            sleep 3
 	   exit 0
 	   ;;
