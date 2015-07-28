@@ -120,6 +120,7 @@ ltc() {
 	echo listen=1 >> ~/.litecoin/litecoin.conf
 	echo server=1 >> ~/.litecoin/litecoin.conf
 	echo daemon=1 >> ~/.litecoin/litecoin.conf
+	echo rpcport=9332 >> ~/.litecoin/litecoin.conf
 	echo "Now go into ~/.litecoin/litecoin.conf and add your username and password"
 	echo "then run litecoin to start wallet"
 	ending
@@ -139,9 +140,18 @@ dash() {
 	./configure --with-incompatible-bdb
 	make -j 3
 	cd ~/dash/src
-	#sudo cp bitcoind /usr/bin/bitcoind
-	#sudo cp bitcoin-cli /usr/bin/bitcoin-cli
-	echo "Now run dashcoind and create dashcoin.conf and enjoy :)"
+	sudo cp dashd /usr/bin/dashcoin
+	sudo cp dash-cli /usr/bin/dashcoin-cli
+	cd ~/
+	mkdir ~/.dashcoin
+	echo rpcuser=dashcoinrpc >> ~/.dashcoin/dashcoin.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.dashcoin/dashcoin.conf
+	echo listen=1 >> ~/.dashcoin/dashcoin.conf
+	echo server=1 >> ~/.dashcoin/dashcoin.conf
+	echo daemon=1 >> ~/.dashcoin/dashcoin.conf
+	echo rpcport=9998 >> ~/.dashcoin/dashcoin.conf
+	echo "Now go into ~/.dashcoin/dashcoin.conf and change rpcuser and rpcpassword"
+	echo "then run dashcoin to start wallet"
 	ending
 }
 wifite() {
