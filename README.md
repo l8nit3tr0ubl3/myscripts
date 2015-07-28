@@ -1,31 +1,31 @@
 # myscripts
-Any shell scripting ive done for linux ease of use
+Any shell scripting ive done for linux ease of use<br>
 
-AIO SCRIPT
----------------------------------------------------------------------------
----------------------------------------------------------------------------
+AIO SCRIPT<br>
+---------------------------------------------------------------------------<br>
+---------------------------------------------------------------------------<br>
 BASIC FUNCTIONS<br>
--h or ?=Display this help screen
--i=Install this script (for ease of use, just type AIO when done.)
-
-UPDATE FUNCTIONS
--u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)
--s=Small Update (just apt update and upgrade)
-
+-h or ?=Display this help screen<br>
+-i=Install this script (for ease of use, just type AIO when done.)<br>
+\n
+UPDATE FUNCTIONS<br>
+-u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)<br>
+-s=Small Update (just apt update and upgrade)<br>
+\n
 CRYPTOCOIN FUNCTIONS
--l=ltc (install litecoin daemon - NO ROOT/SUDO)
--b=btc (install bitcoin daemon - NO ROOT/SUDO)
-
-NETWORK FUNCTIONS
--w=wifite (install wifite+reaver+pyrit+tshark+aircrack)
--n=Network (install tightvnc+openssh-server+screen)
--t=teamviewer32 (install Teamviewer i386 edition)
--T=teamviewer64 (install Teamviewer amd64 edition)
-
-MEDIA FUNCTIONS
--k=kodi (install kodi/xbmc)
-
----------------------------------------------------------------------------
-example: sudo AIO -u -h -s -i -b -l -w -n -t -T -k
----------------------------------------------------------------------------
----------------------------------------------------------------------------
+-l=ltc (install litecoin daemon - NO ROOT/SUDO)<br>
+-b=btc (install bitcoin daemon - NO ROOT/SUDO)<br>
+\n
+NETWORK FUNCTIONS<br>
+-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)<br>
+-n=Network (install tightvnc+openssh-server+screen)<br>
+-t=teamviewer32 (install Teamviewer i386 edition)<br>
+-T=teamviewer64 (install Teamviewer amd64 edition)<br>
+\n
+MEDIA FUNCTIONS<br>
+-k=kodi (install kodi/xbmc)<br>
+\n
+---------------------------------------------------------------------------<br>
+example: sudo AIO -u -h -s -i -b -l -w -n -t -T -k<br>
+---------------------------------------------------------------------------<br>
+---------------------------------------------------------------------------<br>
