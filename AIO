@@ -133,7 +133,7 @@ dash() {
 	sleep 2
 	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
 	cd ~/	
-	git clone https://github.com/dashcoin/dashcoin.git dashcoin
+	git clone https://github.com/papaLazzarou/dashcoin
 	cd dashcoin
 	make -j 3
 	cd ~/dashcoin/build/release/src
