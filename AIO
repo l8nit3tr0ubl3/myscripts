@@ -137,8 +137,7 @@ btc() {
 	make -j 3
 	cd ~/bitcoin/src
 	sudo cp bitcoind /usr/bin/bitcoind
-	bitcoind
-	echo "Now create your bitcoin.conf and enjoy :)"
+	echo "Now run bitcoind and create bitcoin.conf and enjoy :)"
 	ending
 }
 wifite() {
