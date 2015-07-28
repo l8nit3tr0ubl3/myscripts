@@ -110,6 +110,7 @@ ltc() {
 	make -j 3
 	cd ~/litecoin/src
 	sudo cp litecoind /usr/bin/litecoin
+	sudo cp litecoin-cli /usr/bin/litecoin-cli
 	cd ~/
 	mkdir ~/.litecoin
 	echo rpcuser=litecoinrpc >> ~/.litecoin/litecoin.conf
@@ -137,6 +138,7 @@ btc() {
 	make -j 3
 	cd ~/bitcoin/src
 	sudo cp bitcoind /usr/bin/bitcoind
+	sudo cp bitcoin-cli /usr/bin/bitcoin-cli
 	echo "Now run bitcoind and create bitcoin.conf and enjoy :)"
 	ending
 }
