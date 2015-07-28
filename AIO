@@ -1,0 +1,303 @@
+#!/bin/bash
+#Welcome to L8nit3s All-In-One shell script
+#Use of this script is at own risk.
+#Tested on ubuntu 14.04/14.10/15.04
+#Kali-1.1 and ultimate edition 4.3
+
+usage() {
+	echo "---------------------------------------------------------------------------"
+	echo "Hello and welcome to L8nit3's All-In-One shell script."
+	echo "---------------------------------------------------------------------------"
+	echo "PLEASE RUN AS ROOT/SUDO UNLESS WORKING WITH WALLETS!!!"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "BASIC FUNCTIONS"
+	echo "-h or ?=Display this help screen"
+	echo "-i=Install this script (for ease of use, just type AIO when done.)"
+	echo ""
+	echo "UPDATE FUNCTIONS"
+	echo "-u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)"
+	echo "-s=Small Update (just apt update and upgrade)"
+	echo ""
+	echo "CRYPTOCOIN FUNCTIONS"
+	echo "-l=ltc (install litecoin daemon - NO ROOT/SUDO)"
+	echo "-b=btc (install bitcoin daemon - NO ROOT/SUDO)"
+	echo ""
+	echo "NETWORK FUNCTIONS"
+	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
+	echo "-n=Network (install tightvnc+openssh-server+screen)"
+	echo "-t=teamviewer32 (install Teamviewer i386 edition)"
+	echo "-T=teamviewer64 (install Teamviewer amd64 edition)"
+	echo ""
+	echo "MEDIA FUNCTIONS"
+	echo "-k=kodi (install kodi/xbmc)"
+	echo ""
+	echo "---------------------------------------------------------------------------"
+	echo "example: sudo AIO -u -h -s -i -b -l -w -n -t -T -k"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+}
+update() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "You used -u, now running FULL UPDATE"
+		echo "---------------------------------------------------------------------------"
+		sleep 2
+		apt-get update
+		apt-get -y upgrade
+		apt-get -y dist-upgrade
+		apt-get -f -y install
+		apt-get -y autoremove
+		apt-get clean
+		ending
+	fi
+}
+smallupdate() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "You have used -su, now running SMALL UPDATE"
+		echo "---------------------------------------------------------------------------"
+		sleep 2
+		apt-get update
+		apt-get -y upgrade
+		ending
+	fi
+}
+inst() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "You used -i, Now INSTALLING SCRIPT (to /usr/bin)"
+		echo "if there are errors, be sure you cd to the same"
+		echo "directory as the 'AIO' script"
+		echo "---------------------------------------------------------------------------"
+		sleep 2
+		cp AIO /usr/bin
+		chmod 777 /usr/bin/AIO
+		ending
+	fi
+}
+ending() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Finished executing your options :) Thank you for using l8nit3's AIO"
+	echo "Suggestions/comments? email to l8nit3@outlook.com"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+}
+ltc() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing litecoin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone git://github.com/litecoin-project/litecoin.git
+	cd litecoin
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make
+	cd /src
+	cp litecoind /usr/bin/litecoin
+	mkdir ~/.litecoin
+	echo rpcuser=litecoinrpc >> ~/.litecoin/litecoin.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.litecoin/litecoin.conf
+	echo listen=1 >> ~/.litecoin/litecoin.conf
+	echo server=1 >> ~/.litecoin/litecoin.conf
+	echo daemon=1 >> ~/.litecoin/litecoin.conf
+	echo "Now go into ~/.litecoin/litecoin.conf and add your username and password"
+	echo "then run litecoin to start wallet"
+	ending
+}
+btc() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing bitcoin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone https://github.com/bitcoin/bitcoin.git
+	cd bitcoin
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make
+	make install
+	bitcoind
+	echo "Now create your bitcoin.conf and enjoy :)"
+	ending
+}
+wifite() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing Wifite Wifi Cracker."
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		mkdir wifite
+		cd wifite
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing Wifite Depenancies."
+		echo "---------------------------------------------------------------------------"
+		apt-get install -y aircrack-ng libpcap-dev sqlite3 libsqlite3-dev libpcap0.8-dev tshark pyrit wireshark
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing/compiling reaver."
+		echo "---------------------------------------------------------------------------"
+		wget http://reaver-wps.googlecode.com/files/reaver-1.4.tar.gz
+		tar xzvf reaver-1.4.tar.gz
+		cd reaver-1.4/src
+		./configure && make && make install
+		echo "---------------------------------------------------------------------------"
+		echo "Now Downloading wifite."
+		echo "---------------------------------------------------------------------------"
+		cd ~/wifite
+		wget -O wifite.py http://wifite.googlecode.com/svn/trunk/wifite.py
+		chmod +x wifite.py
+		echo "---------------------------------------------------------------------------"
+		echo "Now creating launcher file for easy use."
+		echo "---------------------------------------------------------------------------"
+		echo "cd ~/wifite && python wifite.py --wep --wept 500000 --wpa --wpat 500000" > ~/wifite/wifite
+		cd ~/wifite
+		chmod +x wifite
+		chmod 777 ~/wifite
+		cp wifite /usr/bin
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "Wifite should now be installed, test by typing sudo wifite"
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		ending
+	fi
+}
+network () {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "Installing basic remote networking tools."
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		apt-get install tightvnc openssh-server screen -y
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "All finished adding remote networking tools."
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+	fi
+}
+teamviewer32 () {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "Installing teamviewer i386 version."
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		wget http://download.teamviewer.com/download/teamviewer_i386.deb
+		dpkg -i teamviewer*.deb
+		apt-get install -f -y
+		ending
+
+fi
+}
+teamviewer64 () {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "Installing teamviewer amd64 version."
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		wget http://download.teamviewer.com/download/teamviewer_amd64.deb
+		dpkg -i teamviewer*.deb
+		apt-get install -f -y
+		ending
+fi
+}
+kodi() {
+		echo "---------------------------------------------------------------------------"
+		echo "Installing kodi/xbmc newest version."
+		echo "---------------------------------------------------------------------------"
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		apt-get install software-properties-common -y
+		add-apt-repository ppa:team-xbmc/ppa -y
+		apt-get update
+		apt-get install kodi -y
+		ending
+fi
+}
+OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
+while getopts "khusnilbwtT?:" opt; do
+     case "$opt" in
+        h) usage
+           exit 0
+           ;;
+        t) teamviewer32
+           exit 0
+           ;;
+        T) teamviewer64
+           exit 0
+           ;;
+        k) kodi
+           exit 0
+           ;;
+        i) inst
+           sleep 3
+	   exit 0
+	   ;;
+        n) network
+           sleep 3
+	   exit 0
+	   ;;
+        w) wifite
+	   exit 0
+	   ;;
+        l) ltc
+           sleep 3
+	   exit 0
+	   ;;
+        b) btc
+           sleep 3
+	   exit 0
+	   ;;
+        u) update
+	   sleep 3
+	   exit 0
+           ;;
+        s) smallupdate
+           sleep 3
+	   exit 0
+	   ;;
+        '?')
+           usage >&2
+           exit 1
+           ;;
+        '')
+           usage >&2
+           exit 1
+           ;;
+    esac
+ done
+usage
