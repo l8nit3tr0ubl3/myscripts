@@ -22,7 +22,7 @@ usage() {
 	echo "$(tput setaf 2)CRYPTOCOIN FUNCTIONS$(tput sgr 0)"
 	echo "-l=ltc (install litecoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
 	echo "-d=dash (install dashcoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
-	echo "-N=NOMP (install NOMP+LTC+BTC+DEPENDANCIES)"
+	echo "-N=NOMP (install NOMP+LTC+DASH+DEPENDANCIES)"
 	echo ""
 	echo "$(tput setaf 2)NETWORK FUNCTIONS$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
@@ -150,6 +150,7 @@ dash() {
 	echo server=1 >> ~/.dashcoin/dashcoin.conf
 	echo daemon=1 >> ~/.dashcoin/dashcoin.conf
 	echo rpcport=9998 >> ~/.dashcoin/dashcoin.conf
+	dashcoin
 	echo "Now go into ~/.dashcoin/dashcoin.conf and change rpcuser and rpcpassword"
 	echo "then run dashcoin to start wallet"
 	ending
