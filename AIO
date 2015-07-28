@@ -84,7 +84,8 @@ inst() {
 		echo "---------------------------------------------------------------------------"
 		sleep 2
 		cp AIO /usr/bin
-		chmod 777 /usr/bin/AIO
+		cp AIO /usr/bin/aio
+		chmod 777 /usr/bin/AIO /usr/bin/aio
 		ending
 	fi
 }
@@ -143,15 +144,14 @@ dash() {
 	sudo cp dashd /usr/bin/dashcoin
 	sudo cp dash-cli /usr/bin/dashcoin-cli
 	cd ~/
-	mkdir ~/.dashcoin
-	echo rpcuser=dashcoinrpc >> ~/.dashcoin/dashcoin.conf
-	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.dashcoin/dashcoin.conf
-	echo listen=1 >> ~/.dashcoin/dashcoin.conf
-	echo server=1 >> ~/.dashcoin/dashcoin.conf
-	echo daemon=1 >> ~/.dashcoin/dashcoin.conf
-	echo rpcport=9998 >> ~/.dashcoin/dashcoin.conf
-	dashcoin
-	echo "Now go into ~/.dashcoin/dashcoin.conf and change rpcuser and rpcpassword"
+	mkdir ~/.dash
+	echo rpcuser=dashcoinrpc >> ~/.dash/dash.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.dash/dash.conf
+	echo listen=1 >> ~/.dash/dash.conf
+	echo server=1 >> ~/.dash/dash.conf
+	echo daemon=1 >> ~/.dash/dash.conf
+	echo rpcport=9998 >> ~/.dash/dash.conf
+	echo "Now go into ~/.dash/dash.conf and change rpcuser and rpcpassword"
 	echo "then run dashcoin to start wallet"
 	ending
 }
