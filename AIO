@@ -136,7 +136,7 @@ dash() {
 	git clone https://github.com/dashpay/dash.git
 	cd dash
 	./autogen.sh
-	./configure
+	./configure --with-incompatible-bdb
 	make -j 3
 	cd ~/dash/src
 	#sudo cp bitcoind /usr/bin/bitcoind
