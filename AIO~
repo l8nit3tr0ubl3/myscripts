@@ -171,7 +171,7 @@ wifite() {
 		echo "---------------------------------------------------------------------------"
 		echo "Now installing Wifite Depenancies."
 		echo "---------------------------------------------------------------------------"
-		apt-get install -y aircrack-ng libpcap-dev sqlite3 libsqlite3-dev libpcap0.8-dev tshark pyrit wireshark libssl-dev libdigest-hmac-perl macchanger
+		apt-get install -y aircrack-ng libpcap-dev sqlite3 libsqlite3-dev libpcap0.8-dev tshark pyrit wireshark
 		echo "---------------------------------------------------------------------------"
 		echo "Now installing/compiling reaver."
 		echo "---------------------------------------------------------------------------"
@@ -179,17 +179,6 @@ wifite() {
 		tar xzvf reaver-1.4.tar.gz
 		cd reaver-1.4/src
 		./configure && make && make install
-		echo "---------------------------------------------------------------------------"
-		echo "Now installing Cowpatty"
-		echo "---------------------------------------------------------------------------"
-		wget http://wirelessdefence.org/Contents/Files/cowpatty-4.6.tgz
-		tar xvf cowpatty-4.6.tgz
-		mv cowpatty-4.6 cowpatty
-		cd cowpatty
-		wget http://proton.cygnusx-1.org/~edgan/cowpatty/cowpatty-4.6-fixup16.patch
-		patch < cowpatty-4.6-fixup16.patch
-		make
-		make install
 		echo "---------------------------------------------------------------------------"
 		echo "Now Downloading wifite."
 		echo "---------------------------------------------------------------------------"
