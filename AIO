@@ -256,8 +256,8 @@ teamviewer64 () {
 		echo "---------------------------------------------------------------------------"
 		cd ~/
 		wget http://download.teamviewer.com/download/teamviewer_amd64.deb
+		apt-get install -y lib32z1 libc-dev-bin libc6 libc6-dbg libc6-dev libc6-i386
 		dpkg -i teamviewer*.deb
-		apt-get install -f -y
 		ending
 fi
 }
