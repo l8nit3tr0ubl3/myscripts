@@ -296,8 +296,7 @@ sql() {
 		echo "For this option, Please run as root/sudo" 2>&1
   		exit 1
 	else
-	cd ~/
-	wget 'http://www.4shared.com/archive/KUGDP-wuba/sqlmaptar.html'
+	cd ~/myscripts
 	tar -xvf sqlmap.tar.gz
 	cd sqlmap
 	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap

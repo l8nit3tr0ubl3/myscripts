@@ -302,6 +302,8 @@ sql() {
 	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap
 	chmod 777 sqlmap
 	cp sqlmap /usr/bin
+	cd ~/myscripts
+	rm -r sqlmap*
 fi
 }
 nomp () {
