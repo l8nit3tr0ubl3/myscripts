@@ -297,12 +297,12 @@ sql() {
   		exit 1
 	else
 	cd ~/myscripts
-	tar -xvf sqlmap.tar.gz
-	cd sqlmap
+	tar -xvf sqlmap.tar.gz -C ~/
+	cd ~/sqlmap
 	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap
 	chmod 777 sqlmap
 	cp sqlmap /usr/bin
-	cd ~/myscripts
+	cd ~/Desktop/myscripts
 	rm -r sqlmap*
 fi
 }
