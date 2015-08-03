@@ -296,11 +296,10 @@ sql() {
 		echo "For this option, Please run as root/sudo" 2>&1
   		exit 1
 	else
-	cd ~/
-	wget 'https://github.com/sqlmapproject/sqlmap/tarball/master' --output-document=sqlmap.tar.gz
-	tar -xvf sqlmaptar.gz
+	cd ~/myscripts
+	tar -xvf sqlmap.tar.gz
 	cd sqlmap
-	echo "cd ~/sqlmap && python sqlmap.py" >> sqlmap
+	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap
 	chmod 777 sqlmap
 	cp sqlmap /usr/bin
 fi

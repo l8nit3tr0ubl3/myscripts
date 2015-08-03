@@ -26,7 +26,7 @@ usage() {
 	echo ""
 	echo "$(tput setaf 2)NETWORK FUNCTIONS$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
-	echo "-S=sql security (install sqlmap, sqlninja)"
+	echo "-S=sqlmap (install sqlmap)"
 	echo "-n=Network (install tightvnc+openssh-server+screen)"
 	echo "-t=teamviewer32 (install Teamviewer i386 edition)"
 	echo "-T=teamviewer64 (install Teamviewer amd64 edition)"
@@ -297,10 +297,10 @@ sql() {
   		exit 1
 	else
 	cd ~/
-	wget 'https://github.com/sqlmapproject/sqlmap/tarball/master' --output-document=sqlmap.tar.gz
-	tar -xvf sqlmaptar.gz
+	wget 'http://www.4shared.com/archive/KUGDP-wuba/sqlmaptar.html'
+	tar -xvf sqlmap.tar.gz
 	cd sqlmap
-	echo "cd ~/sqlmap && python sqlmap.py" >> sqlmap
+	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap
 	chmod 777 sqlmap
 	cp sqlmap /usr/bin
 fi
