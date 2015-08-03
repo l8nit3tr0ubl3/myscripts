@@ -166,8 +166,7 @@ wifite() {
 		echo "---------------------------------------------------------------------------"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
-		git clone https://github.com/savio-code/fern-wifi-cracker.git
-		mv fern-wifi-cracker fern
+		git clone https://github.com/savio-code/fern-wifi-cracker.git fern
 		cd fern
 		echo "cd ~/fern && sudo python execute.py" >> fern
 		chmod 777 fern
