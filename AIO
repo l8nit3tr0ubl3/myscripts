@@ -23,6 +23,7 @@ usage() {
 	echo "-l=ltc (install litecoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
 	echo "-d=dash (install dashcoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
 	echo "-N=NOMP (install NOMP+LTC+DASH+DEPENDANCIES)"
+	echo "-1=NOMP only (install NOMP+DEPENDANCIES no coins)"
 	echo ""
 	echo "$(tput setaf 2)NETWORK FUNCTIONS$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
@@ -306,7 +307,7 @@ sql() {
 	rm -r sqlmap*
 fi
 }
-nomp () {
+nomp() {
 	if [[ $EUID -ne 0 ]]; then
 		echo "---------------------------------------------------------------------------"
 		echo "Installing NOMP+LTC+DASH+dependancies"
@@ -343,8 +344,40 @@ nomp () {
 		exit 1
 	fi
 }
+nomp1() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "---------------------------------------------------------------------------"
+		echo "Installing NOMP+LTC+DASH+dependancies"
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
+		sudo apt-get install --yes nodejs
+		wget http://download.redis.io/redis-stable.tar.gz
+		tar xvzf redis-stable.tar.gz
+		cd redis-stable
+		make
+		sudo make install
+		cd ~/
+		echo "---------------------------------------------------------------------------"
+		echo "Now Installing NOMP"
+		echo "---------------------------------------------------------------------------"
+		git clone https://github.com/zone117x/node-open-mining-portal.git nomp
+		cd nomp
+		npm update
+		echo "---------------------------------------------------------------------------"
+		echo "Finished Installing NOMP+REDIS+NODEJS+DASH+LTC"
+		echo "Please go to 'https://github.com/zone117x/node-open-mining-portal'"
+		echo "For instructions on editing the config files to suit your needs."
+		ending
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
+		echo "---------------------------------------------------------------------------"
+		exit 1
+	fi
+}
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "SkhusnilbdwtTN?:" opt; do
+while getopts "Skhusni1lbdwtTN?:" opt; do
      case "$opt" in
         h) usage
            exit 0
@@ -356,6 +389,9 @@ while getopts "SkhusnilbdwtTN?:" opt; do
            exit 0
            ;;
         N) nomp
+           exit 0
+           ;;
+        1) nomp
            exit 0
            ;;
         k) kodi
