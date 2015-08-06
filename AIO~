@@ -23,6 +23,8 @@ usage() {
 	echo "-l=ltc (install litecoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
 	echo "-d=dash (install dashcoin daemon - $(tput setaf 1)NO ROOT/SUDO$(tput sgr 0))"
 	echo "-N=NOMP (install NOMP+LTC+DASH+DEPENDANCIES)"
+	echo "-1=NOMP only (install NOMP+DEPENDANCIES no coins)"
+	echo "-c=cgminer4.3.5 (install ZEUS/GRIDSEED cgminer)"
 	echo ""
 	echo "$(tput setaf 2)NETWORK FUNCTIONS$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
@@ -37,7 +39,7 @@ usage() {
 	read -p "Press Enter to continue." -n1 -s
 	echo ""
 	echo "---------------------------------------------------------------------------"
-	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -N"
+	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N"
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 }
@@ -57,6 +59,42 @@ update() {
 		apt-get -y autoremove
 		apt-get clean
 		ending
+	fi
+}
+cgminer() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "---------------------------------------------------------------------------"
+		echo "You used -c, now installing cgminer 4.3.5 ZEUS/GRIDSEED + DEPENDANCIES"
+		echo "---------------------------------------------------------------------------"
+		sudo apt-get install libcurl4-openssl-dev pkg-config libtool libncurses5-dev libudev-dev screen xterm git openssh-server -y
+		cd ~/		
+		git clone https://github.com/dmaxl/cgminer.git
+		cd cgminer
+		./autogen.sh
+		./configure --enable-scrypt --enable-zeus --enable-gridseed
+		make
+		chmod 777 cgminer
+		sudo cp cgminer /usr/bin
+		echo "#cgminer setup for zeus blizzard only" >> miner
+		echo "#cgminer --scrypt --zeus-chips 6 --zeus-clock 328 --scan-serial zeus:auto -o stratum+tcp://multi.ghash.io:3333 -O up100190575.scrypt:x" >> miner
+		echo "" >> miner
+		echo "#cgminer setup for gridseed globe only" >> miner
+		echo "#cgminer --scrypt --gridseed-options=baud=115200,freq=900,chips=5 -o stratum+tcp://multi.ghash.io:3333 -O up100190575.scrypt:x" >> miner
+		echo "" >> miner
+		echo "#cgminer setup for zeus blizzard and gridseed globe" >> miner
+		echo "#cgminer --scrypt --zeus-chips 6 --zeus-clock 328 --scan-serial zeus:auto --gridseed-options=baud=115200,freq=900,chips=5 -o stratum+tcp://multi.ghash.io:3333 -O up100190575.scrypt:x" >> miner
+		chmod 777 miner
+		mv miner ~/Desktop
+		echo "---------------------------------------------------------------------------"
+		echo "Finished installing, edit 'miner' file on desktop, uncommenting your"
+		echo "required configuration. Then run 'cd ~/Desktop && sudo ./miner' from"
+		echo "a command terminal to start miner"
+		echo "---------------------------------------------------------------------------"
+
+	else
+		echo "Please run as normal user, you will be prompted for root when needed." 2>&1
+  		exit 1
+
 	fi
 }
 smallupdate() {
@@ -306,7 +344,7 @@ sql() {
 	rm -r sqlmap*
 fi
 }
-nomp () {
+nomp() {
 	if [[ $EUID -ne 0 ]]; then
 		echo "---------------------------------------------------------------------------"
 		echo "Installing NOMP+LTC+DASH+dependancies"
@@ -343,8 +381,40 @@ nomp () {
 		exit 1
 	fi
 }
+nomp1() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "---------------------------------------------------------------------------"
+		echo "Installing NOMP+dependancies"
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
+		sudo apt-get install --yes nodejs
+		wget http://download.redis.io/redis-stable.tar.gz
+		tar xvzf redis-stable.tar.gz
+		cd redis-stable
+		make
+		sudo make install
+		cd ~/
+		echo "---------------------------------------------------------------------------"
+		echo "Now Installing NOMP"
+		echo "---------------------------------------------------------------------------"
+		git clone https://github.com/zone117x/node-open-mining-portal.git nomp
+		cd nomp
+		npm update
+		echo "---------------------------------------------------------------------------"
+		echo "Finished Installing NOMP+REDIS+NODEJS+DASH+LTC"
+		echo "Please go to 'https://github.com/zone117x/node-open-mining-portal'"
+		echo "For instructions on editing the config files to suit your needs."
+		ending
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
+		echo "---------------------------------------------------------------------------"
+		exit 1
+	fi
+}
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "SkhusnilbdwtTN?:" opt; do
+while getopts "Skhusni1lbdwtTN?:" opt; do
      case "$opt" in
         h) usage
            exit 0
@@ -356,6 +426,9 @@ while getopts "SkhusnilbdwtTN?:" opt; do
            exit 0
            ;;
         N) nomp
+           exit 0
+           ;;
+        1) nomp
            exit 0
            ;;
         k) kodi
