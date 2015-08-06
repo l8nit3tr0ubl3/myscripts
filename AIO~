@@ -414,9 +414,12 @@ nomp1() {
 	fi
 }
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "Skhusni1lbdwtTN?:" opt; do
+while getopts "Skhusnic1lbdwtTN?:" opt; do
      case "$opt" in
         h) usage
+           exit 0
+           ;;
+        c) usage
            exit 0
            ;;
         t) teamviewer32

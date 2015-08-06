@@ -350,6 +350,7 @@ nomp() {
 		echo "Installing NOMP+LTC+DASH+dependancies"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
+		sudo apt-get install curl -y
 		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
 		sudo apt-get install --yes nodejs
 		wget http://download.redis.io/redis-stable.tar.gz
@@ -387,6 +388,7 @@ nomp1() {
 		echo "Installing NOMP+dependancies"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
+		sudo apt-get install curl -y
 		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
 		sudo apt-get install --yes nodejs
 		wget http://download.redis.io/redis-stable.tar.gz
