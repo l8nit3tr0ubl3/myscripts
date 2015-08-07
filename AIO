@@ -30,7 +30,7 @@ usage() {
 	echo "$(tput setaf 2)$(tput setab 7)MEDIA FUNCTION - RUN AS SUDO$(tput sgr 0)"
 	echo "-k=kodi (install kodi/xbmc)"
 	echo "---------------------------------------------------------------------------"
-	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A"
+	echo "$(tput setaf 1)$(tput setab 7)example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A$(tput sgr 0)"
 	echo "---------------------------------------------------------------------------"
 }
 update() {
