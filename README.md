@@ -16,7 +16,7 @@ CRYPTOCOIN FUNCTIONS<br>
 -l=ltc (install litecoin daemon - NO ROOT/SUDO)<br>
 -d=dash (install dashcoin daemon - NO ROOT/SUDO)<br>
 -N=NOMP (install NOMP+DASH+LTC+DEPENDANCIES - DO NOT RUN AS ROOT)<br>
--1=NOMP only (install NOMP+DEPENDANCIES no coins - DO NOT RUN AS ROOT)<br>
+-o=NOMP only (install NOMP+DEPENDANCIES no coins - DO NOT RUN AS ROOT)<br>
 -c=cgminer4.3.5 (install ZEUS/GRIDSEED cgminer)<br>
 -A=AllCoins (Install 42,dash,ltc,nyan,sxc,zeta+NOMP)<br>
 <br>
@@ -30,7 +30,11 @@ NETWORK FUNCTIONS<br>
 MEDIA FUNCTIONS<br>
 -k=kodi (install kodi/xbmc)<br>
 <br>
+GAMING EMULATION FUNCTIONS - RUN AS SUDO<br>
+-e=emuFull (install 16 console emulators)<br>
+<br>
 ---------------------------------------------------------------------------<br>
-example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A<br>
+example: sudo AIO -i && aio -A<br>
+Will install AIO to /usr/bin and then add NOMP+6 cryptocoins.<br>
 ---------------------------------------------------------------------------<br>
 ---------------------------------------------------------------------------<br>
