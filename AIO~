@@ -40,7 +40,7 @@ usage() {
 	read -p "Press Enter to continue." -n1 -s
 	echo ""
 	echo "---------------------------------------------------------------------------"
-	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N"
+	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A"
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 }
@@ -426,11 +426,8 @@ fourty2() {
 	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
 	cd ~/
 	git clone https://github.com/fourtytwo42/42.git
-	cd 42
-	./autogen.sh
-	./configure --with-incompatible-bdb
-	make -j 3
-	cd ~/42/src
+	cd 42/src
+	make -f makefile.unix -j 3
 	sudo cp 42 /usr/bin
 	cd ~/
 	mkdir ~/.42
@@ -455,11 +452,8 @@ nyan() {
 	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
 	cd ~/
 	git clone https://github.com/nyancoin-release/nyancoin.git
-	cd nyancoin
-	./autogen.sh
-	./configure --with-incompatible-bdb
-	make -j 3
-	cd ~/nyancoin/src
+	cd nyancoin/src
+	make -f makefile.unix -j 3
 	sudo cp nyancoind /usr/bin/nyancoin
 	cd ~/
 	mkdir ~/.nyancoin
@@ -484,10 +478,8 @@ sexcoin() {
 	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
 	cd ~/
 	git clone https://github.com/sexcoin-project/sexcoin.git
-	cd sexcoin
-	./autogen.sh
-	./configure --with-incompatible-bdb
-	make -j 3
+	cd sexcoin/src
+	make -f makefile.unix -j 3
 	cd ~/sexcoin/src
 	sudo cp sexcoind /usr/bin/sexcoin
 	cd ~/
