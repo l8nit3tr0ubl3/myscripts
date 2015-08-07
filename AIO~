@@ -27,7 +27,7 @@ usage() {
 	echo "-n=Network (install tightvnc+openssh-server+screen)"
 	echo "-t=teamviewer32 (install Teamviewer i386 edition)"
 	echo "-T=teamviewer64 (install Teamviewer amd64 edition)"
-	echo "$(tput setaf 2)MEDIA FUNCTION - RUN AS SUDOS$(tput sgr 0)"
+	echo "$(tput setaf 2)MEDIA FUNCTION - RUN AS SUDO$(tput sgr 0)"
 	echo "-k=kodi (install kodi/xbmc)"
 	echo "---------------------------------------------------------------------------"
 	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A"
