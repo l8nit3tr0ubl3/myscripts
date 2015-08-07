@@ -25,6 +25,7 @@ usage() {
 	echo "-N=NOMP (install NOMP+LTC+DASH+DEPENDANCIES)"
 	echo "-1=NOMP only (install NOMP+DEPENDANCIES no coins)"
 	echo "-c=cgminer4.3.5 (install ZEUS/GRIDSEED cgminer)"
+	echo "-A=AllCoins (Install 42,dash,ltc,nyan,sxc,zeta+NOMP)"
 	echo ""
 	echo "$(tput setaf 2)NETWORK FUNCTIONS$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
@@ -39,7 +40,7 @@ usage() {
 	read -p "Press Enter to continue." -n1 -s
 	echo ""
 	echo "---------------------------------------------------------------------------"
-	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N"
+	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A"
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 }
@@ -66,7 +67,7 @@ cgminer() {
 		echo "---------------------------------------------------------------------------"
 		echo "You used -c, now installing cgminer 4.3.5 ZEUS/GRIDSEED + DEPENDANCIES"
 		echo "---------------------------------------------------------------------------"
-		sudo apt-get install libcurl4-openssl-dev pkg-config libtool libncurses5-dev libudev-dev screen xterm git openssh-server -y
+		sudo apt-get install libcurl4-openssl-dev pkg-config libtool libncurses5-dev libudev-dev screen xterm git openssh-server autoconf automake -y
 		cd ~/		
 		git clone https://github.com/dmaxl/cgminer.git
 		cd cgminer
@@ -415,13 +416,165 @@ nomp1() {
 		exit 1
 	fi
 }
+fourty2() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing 42coin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone https://github.com/fourtytwo42/42.git
+	cd 42
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make -j 3
+	cd ~/42/src
+	sudo cp 42 /usr/bin
+	cd ~/
+	mkdir ~/.42
+	echo rpcuser=42rpc >> ~/.42/42.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.42/42.conf
+	echo listen=1 >> ~/.42/42.conf
+	echo server=1 >> ~/.42/42.conf
+	echo daemon=1 >> ~/.42/42.conf
+	echo rpcport=4242 >> ~/.42/42.conf
+	echo "Now go into ~/.42/42.conf and add your username and password"
+	echo "then run 42 to start wallet"
+	ending
+}
+
+nyan() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing nyancoin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone https://github.com/nyancoin-release/nyancoin.git
+	cd nyancoin
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make -j 3
+	cd ~/nyancoin/src
+	sudo cp nyancoind /usr/bin/nyancoin
+	cd ~/
+	mkdir ~/.nyancoin
+	echo rpcuser=nyancoinrpc >> ~/.nyancoin/nyancoin.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.nyancoin/nyancoin.conf
+	echo listen=1 >> ~/.nyancoin/nyancoin.conf
+	echo server=1 >> ~/.nyancoin/nyancoin.conf
+	echo daemon=1 >> ~/.nyancoin/nyancoin.conf
+	echo rpcport=33700 >> ~/.nyancoin/nyancoin.conf
+	echo "Now go into ~/.nyancoin/nyancoin.conf and add your username and password"
+	echo "then run nyancoin to start wallet"
+	ending
+}
+
+sexcoin() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing sexcoin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone https://github.com/sexcoin-project/sexcoin.git
+	cd sexcoin
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make -j 3
+	cd ~/sexcoin/src
+	sudo cp sexcoind /usr/bin/sexcoin
+	cd ~/
+	mkdir ~/.sexcoin
+	echo rpcuser=sexrpc >> ~/.sexcoin/sexcoin.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.sexcoin/sexcoin.conf
+	echo listen=1 >> ~/.sexcoin/sexcoin.conf
+	echo server=1 >> ~/.sexcoin/sexcoin.conf
+	echo daemon=1 >> ~/.sexcoin/sexcoin.conf
+	echo rpcport=9561 >> ~/.sexcoin/sexcoin.conf
+	echo "Now go into ~/.sexcoin/sexcoin.conf and add your username and password"
+	echo "then run sexcoin to start wallet"
+	ending
+}
+
+zetacoin() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing zetacoin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone 
+	cd zetacoin
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make -j 3
+	cd ~/zetacoin/src
+	sudo cp zetacoind /usr/bin/zetacoin
+	cd ~/
+	mkdir ~/.zetacoin
+	echo rpcuser=zetarpc >> ~/.zetacoin/zetacoin.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.zetacoin/zetacoin.conf
+	echo listen=1 >> ~/.zetacoin/zetacoin.conf
+	echo server=1 >> ~/.zetacoin/zetacoin.conf
+	echo daemon=1 >> ~/.zetacoin/zetacoin.conf
+	echo rpcport=17333 >> ~/.zetacoin/zetacoin.conf
+	echo "Now go into ~/.zetacoin/zetacoin.conf and add your username and password"
+	echo "then run zetacoin to start wallet"
+	ending
+}
+
+allcoins() {
+	if [[ $EUID -ne 0 ]]; then
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing all supported coin daemons (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
+	cd ~/
+	mkdir wallets
+	cd wallets
+	ltc
+	mv litecoin wallets
+	dash
+	mv dash wallets
+	fourty2
+	mv 42 wallets
+	nyan
+	mv nyancoin wallets
+	sexcoin
+	mv sexcoin wallets
+	zetacoin
+	mv zetacoin wallets
+	nomp1
+	echo "---------------------------------------------------------------------------"
+	echo "Finished installing 42, dash, ltc, nyan, sxc, and zet. Now adding NOMP."
+	echo "---------------------------------------------------------------------------"
+
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
+		echo "---------------------------------------------------------------------------"
+		exit 1
+	fi
+}
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "Skhusnic1lbdwtTN?:" opt; do
+while getopts "Skhusnic1lbAdwtTN?:" opt; do
      case "$opt" in
         h) usage
            exit 0
            ;;
-        c) usage
+        c) cgminer
            exit 0
            ;;
         t) teamviewer32
@@ -433,7 +586,7 @@ while getopts "Skhusnic1lbdwtTN?:" opt; do
         N) nomp
            exit 0
            ;;
-        1) nomp
+        1) nomp1
            exit 0
            ;;
         k) kodi
@@ -478,6 +631,10 @@ while getopts "Skhusnic1lbdwtTN?:" opt; do
            usage >&2
            exit 1
            ;;
+        A) allcoins
+           sleep 3
+	   exit 0
+	   ;;
     esac
  done
 usage
