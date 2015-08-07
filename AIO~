@@ -423,7 +423,7 @@ fourty2() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libminiupnp-dev libboost-all-dev git autoconf automake libtool -y
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libminiupnpc-dev libboost-all-dev git autoconf automake libtool -y
 	cd ~/
 	git clone https://github.com/fourtytwo42/42.git
 	cd 42/src
@@ -449,7 +449,7 @@ nyan() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 	sleep 2
-	sudo apt-get install build-essential libssl-dev libminiupnp-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	sudo apt-get install build-essential libssl-dev libminiupnpc-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
 	cd ~/
 	git clone https://github.com/nyancoin-release/nyancoin.git
 	cd nyancoin/src
@@ -475,7 +475,7 @@ sexcoin() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 	sleep 2
-	sudo apt-get install build-essential libminiupnp-dev libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
+	sudo apt-get install build-essential libminiupnpc-dev libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool -y
 	cd ~/
 	git clone https://github.com/sexcoin-project/sexcoin.git
 	cd sexcoin/src
@@ -502,7 +502,7 @@ zetacoin() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
 	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool libminiupnp-dev -y
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool libminiupnp-devc -y
 	cd ~/
 	git clone https://github.com/zetacoin/zetacoin.git
 	cd zetacoin/src
