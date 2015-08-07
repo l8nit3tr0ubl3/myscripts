@@ -10,7 +10,7 @@ usage() {
 	echo "---------------------------------------------------------------------------"
 	echo "$(tput setaf 2)$(tput setab 7)BASIC FUNCTIONS - RUN WITH SUDO$(tput sgr 0)"
 	echo "-h or ?=Display this help screen"
-	echo "-i=Install this script (for ease of use, just type AIO when done.)"
+	echo "-i=Install this script (to /usr/bin, just type 'AIO' or 'aio' when done.)"
 	echo "$(tput setaf 2)$(tput setab 7)UPDATE FUNCTIONS - RUN WITH SUDO$(tput sgr 0)"
 	echo "-u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)"
 	echo "-s=Small Update (just apt update and upgrade)"
@@ -18,7 +18,7 @@ usage() {
 	echo "-l=ltc (install litecoin daemon - $(tput setaf 1)$(tput sgr 0))"
 	echo "-d=dash (install dashcoin daemon - $(tput setaf 1)$(tput sgr 0))"
 	echo "-N=NOMP (install NOMP+LTC+DASH+DEPENDANCIES)"
-	echo "-1=NOMP only (install NOMP+DEPENDANCIES no coins)"
+	echo "-o=NOMP only (install NOMP+DEPENDANCIES no coins)"
 	echo "-c=cgminer4.3.5 (install ZEUS/GRIDSEED cgminer)"
 	echo "-A=AllCoins (Install 42,dash,ltc,nyan,sxc,zeta+NOMP)"
 	echo "$(tput setaf 2)$(tput setab 7)NETWORK FUNCTIONS RUN AS SUDO$(tput sgr 0)"
@@ -29,26 +29,48 @@ usage() {
 	echo "-T=teamviewer64 (install Teamviewer amd64 edition)"
 	echo "$(tput setaf 2)$(tput setab 7)MEDIA FUNCTION - RUN AS SUDO$(tput sgr 0)"
 	echo "-k=kodi (install kodi/xbmc)"
+	echo "$(tput setaf 2)$(tput setab 7)GAMING EMULATION FUNCTIONS - RUN AS SUDO$(tput sgr 0)"
+	echo "-e=emuFull (install 16 console emulators)"
 	echo "---------------------------------------------------------------------------"
-	echo "example: sudo AIO -u -h -s -S -i -d -l -w -n -t -T -k -1 -c -N -A"
+	echo "$(tput setaf 1)$(tput setab 7)example: sudo AIO -i && aio -A$(tput sgr 0)"
+	echo "Will install AIO to /usr/bin and then add NOMP+6 cryptocoins."
 	echo "---------------------------------------------------------------------------"
 }
-update() {
+#Define Functions for options above - Alphabetical
+allcoins() {
 	if [[ $EUID -ne 0 ]]; then
-		echo "For this option, Please run as root/sudo" 2>&1
-  		exit 1
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing all supported coin daemons (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
+	cd ~/
+	mkdir wallets
+	cd wallets
+	ltc
+	mv litecoin wallets
+	dash
+	mv dash wallets
+	fourty2
+	mv 42 wallets
+	nyan
+	mv nyancoin wallets
+	sexcoin
+	mv sexcoin wallets
+	zetacoin
+	mv zetacoin wallets
+	nomp1
+	echo "---------------------------------------------------------------------------"
+	echo "Finished installing 42, dash, ltc, nyan, sxc, and zet. Now adding NOMP."
+	echo "---------------------------------------------------------------------------"
+
 	else
 		echo "---------------------------------------------------------------------------"
-		echo "You used -u, now running FULL UPDATE"
+		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
 		echo "---------------------------------------------------------------------------"
-		sleep 2
-		apt-get update
-		apt-get -y upgrade
-		apt-get -y dist-upgrade
-		apt-get -f -y install
-		apt-get -y autoremove
-		apt-get clean
-		ending
+		exit 1
 	fi
 }
 cgminer() {
@@ -87,19 +109,77 @@ cgminer() {
 
 	fi
 }
-smallupdate() {
+dash() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing dashcoin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
+	cd ~/	
+	git clone https://github.com/dashpay/dash.git
+	cd dash
+	./autogen.sh
+	./configure --with-incompatible-bdb
+	make -j 3
+	cd ~/dash/src
+	sudo cp dashd /usr/bin/dashcoin
+	sudo cp dash-cli /usr/bin/dashcoin-cli
+	cd ~/
+	mkdir ~/.dash
+	echo rpcuser=dashcoinrpc >> ~/.dash/dash.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.dash/dash.conf
+	echo listen=1 >> ~/.dash/dash.conf
+	echo server=1 >> ~/.dash/dash.conf
+	echo daemon=1 >> ~/.dash/dash.conf
+	echo rpcport=9998 >> ~/.dash/dash.conf
+	echo "Now go into ~/.dash/dash.conf and change rpcuser and rpcpassword"
+	echo "then run dashcoin to start wallet"
+	ending
+}
+emuFull() {
 	if [[ $EUID -ne 0 ]]; then
 		echo "For this option, Please run as root/sudo" 2>&1
   		exit 1
 	else
-		echo "---------------------------------------------------------------------------"
-		echo "You have used -su, now running SMALL UPDATE"
-		echo "---------------------------------------------------------------------------"
-		sleep 2
-		apt-get update
-		apt-get -y upgrade
+		apt-get -y update
+		apt-get -y install mame mess zsnes:i386 visualboyadvance visualboyadvance-gtk stella mednafenfceu desmume mupen64plus yabause
 		ending
 	fi
+}
+ending() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Finished executing your options :) Thank you for using l8nit3's AIO"
+	echo "Suggestions/comments? email to l8nit3@outlook.com"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+}
+fourty2() {
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	echo "Now installing 42coin daemon (command line only)"
+	echo "---------------------------------------------------------------------------"
+	echo "---------------------------------------------------------------------------"
+	sleep 2
+	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libminiupnpc-dev libboost-all-dev git autoconf automake libtool -y
+	cd ~/
+	git clone https://github.com/fourtytwo42/42.git
+	cd 42/src
+	make -f makefile.unix -j 3
+	sudo cp 42 /usr/bin
+	cd ~/
+	mkdir ~/.42
+	echo rpcuser=42rpc >> ~/.42/42.conf
+	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.42/42.conf
+	echo listen=1 >> ~/.42/42.conf
+	echo server=1 >> ~/.42/42.conf
+	echo daemon=1 >> ~/.42/42.conf
+	echo rpcport=4242 >> ~/.42/42.conf
+	echo "Now go into ~/.42/42.conf and add your username and password"
+	echo "then run 42 to start wallet"
+	ending
 }
 inst() {
 	if [[ $EUID -ne 0 ]]; then
@@ -118,13 +198,20 @@ inst() {
 		ending
 	fi
 }
-ending() {
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	echo "Finished executing your options :) Thank you for using l8nit3's AIO"
-	echo "Suggestions/comments? email to l8nit3@outlook.com"
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
+kodi() {
+		echo "---------------------------------------------------------------------------"
+		echo "Installing kodi/xbmc newest version."
+		echo "---------------------------------------------------------------------------"
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		apt-get install software-properties-common -y
+		add-apt-repository ppa:team-xbmc/ppa -y
+		apt-get update
+		apt-get install kodi -y
+		ending
+fi
 }
 ltc() {
 	echo "---------------------------------------------------------------------------"
@@ -155,103 +242,6 @@ ltc() {
 	echo "then run litecoin to start wallet"
 	ending
 }
-dash() {
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	echo "Now installing dashcoin daemon (command line only)"
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
-	cd ~/	
-	git clone https://github.com/dashpay/dash.git
-	cd dash
-	./autogen.sh
-	./configure --with-incompatible-bdb
-	make -j 3
-	cd ~/dash/src
-	sudo cp dashd /usr/bin/dashcoin
-	sudo cp dash-cli /usr/bin/dashcoin-cli
-	cd ~/
-	mkdir ~/.dash
-	echo rpcuser=dashcoinrpc >> ~/.dash/dash.conf
-	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.dash/dash.conf
-	echo listen=1 >> ~/.dash/dash.conf
-	echo server=1 >> ~/.dash/dash.conf
-	echo daemon=1 >> ~/.dash/dash.conf
-	echo rpcport=9998 >> ~/.dash/dash.conf
-	echo "Now go into ~/.dash/dash.conf and change rpcuser and rpcpassword"
-	echo "then run dashcoin to start wallet"
-	ending
-}
-wifite() {
-	if [[ $EUID -ne 0 ]]; then
-		echo "For this option, Please run as root/sudo" 2>&1
-  		exit 1
-	else
-		echo "---------------------------------------------------------------------------"
-		echo "---------------------------------------------------------------------------"
-		echo "Now installing Fern-Wifi-Cracker-NG."
-		echo "---------------------------------------------------------------------------"
-		echo "---------------------------------------------------------------------------"
-		cd ~/
-		git clone https://github.com/savio-code/fern-wifi-cracker.git fern
-		cd fern
-		echo "cd ~/fern/Fern-Wifi-Cracker && sudo python execute.py" >> fern
-		chmod 777 fern
-		sudo cp fern /usr/bin
-		echo "---------------------------------------------------------------------------"
-		echo "Finished installing Fern-Wifi-Cracker."
-		echo "---------------------------------------------------------------------------"
-		echo "---------------------------------------------------------------------------"
-		echo "Now installing Wifite Wifi Cracker."
-		echo "---------------------------------------------------------------------------"
-		echo "---------------------------------------------------------------------------"
-		cd ~/
-		mkdir wifite
-		cd wifite
-		echo "---------------------------------------------------------------------------"
-		echo "Now installing Wifite Depenancies."
-		echo "---------------------------------------------------------------------------"
-		apt-get install -y aircrack-ng libpcap-dev sqlite3 libsqlite3-dev libpcap0.8-dev tshark pyrit wireshark libssl-dev libdigest-hmac-perl macchanger
-		echo "---------------------------------------------------------------------------"
-		echo "Now installing/compiling reaver."
-		echo "---------------------------------------------------------------------------"
-		wget http://reaver-wps.googlecode.com/files/reaver-1.4.tar.gz
-		tar xzvf reaver-1.4.tar.gz
-		cd reaver-1.4/src
-		./configure && make && make install
-		echo "---------------------------------------------------------------------------"
-		echo "Now installing Cowpatty"
-		echo "---------------------------------------------------------------------------"
-		wget http://www.willhackforsushi.com/code/cowpatty/4.6/cowpatty-4.6.tgz
-		tar xvf cowpatty-4.6.tgz
-		mv cowpatty-4.6 cowpatty
-		cd cowpatty
-		make
-		make install
-		echo "---------------------------------------------------------------------------"
-		echo "Now Downloading wifite."
-		echo "---------------------------------------------------------------------------"
-		cd ~/wifite
-		wget -O wifite.py http://wifite.googlecode.com/svn/trunk/wifite.py
-		chmod +x wifite.py
-		echo "---------------------------------------------------------------------------"
-		echo "Now creating launcher file for easy use."
-		echo "---------------------------------------------------------------------------"
-		echo "cd ~/wifite && python wifite.py --wep --wept 500000 --wpa --wpat 500000" > ~/wifite/wifite
-		cd ~/wifite
-		chmod +x wifite
-		chmod 777 ~/wifite
-		cp wifite /usr/bin
-		echo "---------------------------------------------------------------------------"
-		echo "---------------------------------------------------------------------------"
-		echo "Wifite should now be installed, test by typing sudo wifite"
-		echo "---------------------------------------------------------------------------"
-		echo "---------------------------------------------------------------------------"
-		ending
-	fi
-}
 network () {
 	if [[ $EUID -ne 0 ]]; then
 		echo "For this option, Please run as root/sudo" 2>&1
@@ -269,70 +259,6 @@ network () {
 		echo "---------------------------------------------------------------------------"
 		echo "---------------------------------------------------------------------------"
 	fi
-}
-teamviewer32 () {
-	if [[ $EUID -ne 0 ]]; then
-		echo "For this option, Please run as root/sudo" 2>&1
-  		exit 1
-	else
-		echo "---------------------------------------------------------------------------"
-		echo "Installing teamviewer i386 version."
-		echo "---------------------------------------------------------------------------"
-		cd ~/
-		wget http://download.teamviewer.com/download/teamviewer_i386.deb
-		dpkg -i teamviewer*.deb
-		apt-get install -f -y
-		ending
-
-fi
-}
-teamviewer64 () {
-	if [[ $EUID -ne 0 ]]; then
-		echo "For this option, Please run as root/sudo" 2>&1
-  		exit 1
-	else
-		echo "---------------------------------------------------------------------------"
-		echo "Installing teamviewer amd64 version."
-		echo "---------------------------------------------------------------------------"
-		cd ~/
-		wget http://download.teamviewer.com/download/teamviewer_amd64.deb
-		apt-get install -y lib32z1 libc-dev-bin libc6 libc6-dbg libc6-dev libc6-i386
-		dpkg -i teamviewer*.deb
-		ending
-fi
-}
-kodi() {
-		echo "---------------------------------------------------------------------------"
-		echo "Installing kodi/xbmc newest version."
-		echo "---------------------------------------------------------------------------"
-	if [[ $EUID -ne 0 ]]; then
-		echo "For this option, Please run as root/sudo" 2>&1
-  		exit 1
-	else
-		apt-get install software-properties-common -y
-		add-apt-repository ppa:team-xbmc/ppa -y
-		apt-get update
-		apt-get install kodi -y
-		ending
-fi
-}
-sql() {
-		echo "---------------------------------------------------------------------------"
-		echo "Installing SQL pentest software.."
-		echo "---------------------------------------------------------------------------"
-	if [[ $EUID -ne 0 ]]; then
-		echo "For this option, Please run as root/sudo" 2>&1
-  		exit 1
-	else
-	cd ~/myscripts
-	tar -xvf sqlmap.tar.gz -C ~/
-	cd ~/sqlmap
-	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap
-	chmod 777 sqlmap
-	cp sqlmap /usr/bin
-	cd ~/Desktop/myscripts
-	rm -r sqlmap*
-fi
 }
 nomp() {
 	if [[ $EUID -ne 0 ]]; then
@@ -405,32 +331,6 @@ nomp1() {
 		exit 1
 	fi
 }
-fourty2() {
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	echo "Now installing 42coin daemon (command line only)"
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libminiupnpc-dev libboost-all-dev git autoconf automake libtool -y
-	cd ~/
-	git clone https://github.com/fourtytwo42/42.git
-	cd 42/src
-	make -f makefile.unix -j 3
-	sudo cp 42 /usr/bin
-	cd ~/
-	mkdir ~/.42
-	echo rpcuser=42rpc >> ~/.42/42.conf
-	echo rpcpassword=InsertSecureP4ssH3r3 >> ~/.42/42.conf
-	echo listen=1 >> ~/.42/42.conf
-	echo server=1 >> ~/.42/42.conf
-	echo daemon=1 >> ~/.42/42.conf
-	echo rpcport=4242 >> ~/.42/42.conf
-	echo "Now go into ~/.42/42.conf and add your username and password"
-	echo "then run 42 to start wallet"
-	ending
-}
-
 nyan() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
@@ -456,7 +356,6 @@ nyan() {
 	echo "then run nyancoin to start wallet"
 	ending
 }
-
 sexcoin() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
@@ -483,7 +382,155 @@ sexcoin() {
 	echo "then run sexcoin to start wallet"
 	ending
 }
+smallupdate() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "You have used -su, now running SMALL UPDATE"
+		echo "---------------------------------------------------------------------------"
+		sleep 2
+		apt-get update
+		apt-get -y upgrade
+		ending
+	fi
+}
+sql() {
+		echo "---------------------------------------------------------------------------"
+		echo "Installing SQL pentest software.."
+		echo "---------------------------------------------------------------------------"
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+	cd ~/myscripts
+	tar -xvf sqlmap.tar.gz -C ~/
+	cd ~/sqlmap
+	echo "cd ~/sqlmap && python sqlmap.py --wizard" >> sqlmap
+	chmod 777 sqlmap
+	cp sqlmap /usr/bin
+	cd ~/Desktop/myscripts
+	rm -r sqlmap*
+fi
+}
+teamviewer32 () {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "Installing teamviewer i386 version."
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		wget http://download.teamviewer.com/download/teamviewer_i386.deb
+		dpkg -i teamviewer*.deb
+		apt-get install -f -y
+		ending
 
+fi
+}
+teamviewer64 () {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "Installing teamviewer amd64 version."
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		wget http://download.teamviewer.com/download/teamviewer_amd64.deb
+		apt-get install -y lib32z1 libc-dev-bin libc6 libc6-dbg libc6-dev libc6-i386
+		dpkg -i teamviewer*.deb
+		ending
+fi
+}
+update() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "You used -u, now running FULL UPDATE"
+		echo "---------------------------------------------------------------------------"
+		sleep 2
+		apt-get update
+		apt-get -y upgrade
+		apt-get -y dist-upgrade
+		apt-get -f -y install
+		apt-get -y autoremove
+		apt-get clean
+		ending
+	fi
+}
+wifite() {
+	if [[ $EUID -ne 0 ]]; then
+		echo "For this option, Please run as root/sudo" 2>&1
+  		exit 1
+	else
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing Fern-Wifi-Cracker-NG."
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		git clone https://github.com/savio-code/fern-wifi-cracker.git fern
+		cd fern
+		echo "cd ~/fern/Fern-Wifi-Cracker && sudo python execute.py" >> fern
+		chmod 777 fern
+		sudo cp fern /usr/bin
+		echo "---------------------------------------------------------------------------"
+		echo "Finished installing Fern-Wifi-Cracker."
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing Wifite Wifi Cracker."
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		cd ~/
+		mkdir wifite
+		cd wifite
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing Wifite Depenancies."
+		echo "---------------------------------------------------------------------------"
+		apt-get install -y aircrack-ng libpcap-dev sqlite3 libsqlite3-dev libpcap0.8-dev tshark pyrit wireshark libssl-dev libdigest-hmac-perl macchanger
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing/compiling reaver."
+		echo "---------------------------------------------------------------------------"
+		wget http://reaver-wps.googlecode.com/files/reaver-1.4.tar.gz
+		tar xzvf reaver-1.4.tar.gz
+		cd reaver-1.4/src
+		./configure && make && make install
+		echo "---------------------------------------------------------------------------"
+		echo "Now installing Cowpatty"
+		echo "---------------------------------------------------------------------------"
+		wget http://www.willhackforsushi.com/code/cowpatty/4.6/cowpatty-4.6.tgz
+		tar xvf cowpatty-4.6.tgz
+		mv cowpatty-4.6 cowpatty
+		cd cowpatty
+		make
+		make install
+		echo "---------------------------------------------------------------------------"
+		echo "Now Downloading wifite."
+		echo "---------------------------------------------------------------------------"
+		cd ~/wifite
+		wget -O wifite.py http://wifite.googlecode.com/svn/trunk/wifite.py
+		chmod +x wifite.py
+		echo "---------------------------------------------------------------------------"
+		echo "Now creating launcher file for easy use."
+		echo "---------------------------------------------------------------------------"
+		echo "cd ~/wifite && python wifite.py --wep --wept 500000 --wpa --wpat 500000" > ~/wifite/wifite
+		cd ~/wifite
+		chmod +x wifite
+		chmod 777 ~/wifite
+		cp wifite /usr/bin
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		echo "Wifite should now be installed, test by typing sudo wifite"
+		echo "---------------------------------------------------------------------------"
+		echo "---------------------------------------------------------------------------"
+		ending
+	fi
+}
 zetacoin() {
 	echo "---------------------------------------------------------------------------"
 	echo "---------------------------------------------------------------------------"
@@ -512,45 +559,8 @@ zetacoin() {
 	echo "then run zetacoin to start wallet"
 	ending
 }
-
-allcoins() {
-	if [[ $EUID -ne 0 ]]; then
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	echo "Now installing all supported coin daemons (command line only)"
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
-	cd ~/
-	mkdir wallets
-	cd wallets
-	ltc
-	mv litecoin wallets
-	dash
-	mv dash wallets
-	fourty2
-	mv 42 wallets
-	nyan
-	mv nyancoin wallets
-	sexcoin
-	mv sexcoin wallets
-	zetacoin
-	mv zetacoin wallets
-	nomp1
-	echo "---------------------------------------------------------------------------"
-	echo "Finished installing 42, dash, ltc, nyan, sxc, and zet. Now adding NOMP."
-	echo "---------------------------------------------------------------------------"
-
-	else
-		echo "---------------------------------------------------------------------------"
-		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
-		echo "---------------------------------------------------------------------------"
-		exit 1
-	fi
-}
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "Skhusnic1lbAdwtTN?:" opt; do
+while getopts "Skhusneic1lbAdwtTN?:" opt; do
      case "$opt" in
         h) usage
            exit 0
@@ -561,13 +571,16 @@ while getopts "Skhusnic1lbAdwtTN?:" opt; do
         t) teamviewer32
            exit 0
            ;;
+        e) emuFull
+           exit 0
+           ;;
         T) teamviewer64
            exit 0
            ;;
         N) nomp
            exit 0
            ;;
-        1) nomp1
+        o) nomp1
            exit 0
            ;;
         k) kodi
