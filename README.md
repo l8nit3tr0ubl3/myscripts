@@ -12,6 +12,12 @@ UPDATE FUNCTIONS - RUN WITH SUDO<br>
 -u=Update entire system (update+upgrade+dist-upgrade+autoremove+apt clean)<br>
 -s=Small Update (just apt update and upgrade)<br>
 <br>
+DESKTOP ENVIRONMENT CHANGING- RUN WITH SUDO<br>
+-K=KDE (install kde alongside unity)<br>
+-X=XFCE (install xfce alongside unity)<br>
+-L=LXDE (install lxde alongside unity)<br>
+-G=GNOME (jinstall gnome alongside unity)<br>
+<br>
 CRYPTOCOIN FUNCTIONS - RUN AS NORMAL USER<br>
 -l=ltc (install litecoin daemon)<br>
 -d=dash (install dashcoin daemon)<br>
@@ -19,6 +25,7 @@ CRYPTOCOIN FUNCTIONS - RUN AS NORMAL USER<br>
 -o=NOMP only (install NOMP+DEPENDANCIES no coins)<br>
 -c=cgminer4.3.5 (install ZEUS/GRIDSEED cgminer)<br>
 -A=AllCoins (Install 42,dash,ltc,nyan,sxc,zeta+NOMP)<br>
+-a=allCoinNOnomp (Install 42,dash,ltc,nyan,sxc,zeta)<br>
 <br>
 NETWORK FUNCTIONS - RUN WITH SUDO<br>
 -w=wifite (install wifite+reaver+pyrit+tshark+aircrack)<br>
