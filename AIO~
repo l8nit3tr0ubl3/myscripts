@@ -36,7 +36,7 @@ usage() {
 	echo "$(tput setaf 2)$(tput setab 7)MEDIA FUNCTION - RUN WITH SUDO$(tput sgr 0)"
 	echo "-k=kodi (install kodi/xbmc)"
 	echo "$(tput setaf 2)$(tput setab 7)GAMING EMULATION FUNCTIONS - RUN WITH SUDO$(tput sgr 0)"
-	echo "-e=emuFull (install 10 console emulators)"
+	echo "-e=emuFull (install 16 console emulators)"
 	echo "---------------------------------------------------------------------------"
 	echo "$(tput setaf 1)$(tput setab 7)example: sudo AIO -i && aio -A$(tput sgr 0)"
 	echo "Will install AIO to /usr/bin and then add NOMP+6 cryptocoins."

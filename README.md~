@@ -38,7 +38,7 @@ MEDIA FUNCTIONS - RUN WITH SUDO<br>
 -k=kodi (install kodi/xbmc)<br>
 <br>
 GAMING EMULATION FUNCTIONS - RUN WITH SUDO<br>
--e=emuFull (install 10 console emulators)<br>
+-e=emuFull (install 16 console emulators)<br>
 <br>
 ---------------------------------------------------------------------------<br>
 example: sudo AIO -i && aio -A<br>
