@@ -26,7 +26,6 @@ usage() {
 	echo "-o=NOMP only (install NOMP+DEPENDANCIES no coins)"
 	echo "-c=cgminer4.3.5 (install ZEUS/GRIDSEED cgminer)"
 	echo "-A=AllCoins (Install 42,dash,ltc,nyan,sxc,zeta+NOMP)"
-	echo "-a=allCoinNOnomp (Install 42,dash,ltc,nyan,sxc,zeta)"
 	echo "$(tput setaf 2)$(tput setab 7)NETWORK FUNCTIONS RUN WITH SUDO$(tput sgr 0)"
 	echo "-w=wifite (install wifite+reaver+pyrit+tshark+aircrack)"
 	echo "-S=sqlmap (install sqlmap)"
@@ -43,41 +42,6 @@ usage() {
 	echo "---------------------------------------------------------------------------"
 }
 #Define Functions for options above - Alphabetical
-allcoinNOnomp() {
-	if [[ $EUID -ne 0 ]]; then
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	echo "Now installing all supported coin daemons (command line only)"
-	echo "---------------------------------------------------------------------------"
-	echo "---------------------------------------------------------------------------"
-	sleep 2
-	sudo apt-get install build-essential libssl-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool cmake -y
-	cd ~/
-	mkdir wallets
-	cd wallets
-	ltc
-	mv litecoin wallets
-	dash
-	mv dash wallets
-	fourty2
-	mv 42 wallets
-	nyan
-	mv nyancoin wallets
-	sexcoin
-	mv sexcoin wallets
-	zetacoin
-	mv zetacoin wallets
-	echo "---------------------------------------------------------------------------"
-	echo "Finished installing 42, dash, ltc, nyan, sxc, and zet."
-	echo "---------------------------------------------------------------------------"
-	ending
-	else
-		echo "---------------------------------------------------------------------------"
-		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
-		echo "---------------------------------------------------------------------------"
-		exit 1
-	fi
-}
 allcoins() {
 	if [[ $EUID -ne 0 ]]; then
 	echo "---------------------------------------------------------------------------"
@@ -649,7 +613,7 @@ zetacoin() {
 	ending
 }
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "Skhausneic1lbAdwtTNKLXG?:" opt; do
+while getopts "Skhusneic1lbAdwtTNKLXG?:" opt; do
      case "$opt" in
         h) usage
            exit 0
@@ -727,10 +691,6 @@ while getopts "Skhausneic1lbAdwtTNKLXG?:" opt; do
            exit 1
            ;;
         A) allcoins
-           sleep 3
-	   exit 0
-	   ;;
-        a) allcoinNOnomp
            sleep 3
 	   exit 0
 	   ;;
