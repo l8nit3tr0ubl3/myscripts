@@ -18,7 +18,7 @@ usage() {
 	echo "-K=KDE (install kde alongside unity)"
 	echo "-X=XFCE (install xfce alongside unity)"
 	echo "-L=LXDE (install lxde alongside unity)"
-	echo "-G=GNOME (jinstall gnome alongside unity)"
+	echo "-G=GNOME (install gnome alongside unity)"
 	echo "$(tput setaf 2)$(tput setab 7)CRYPTOCOIN FUNCTIONS - RUN AS NORMAL USER$(tput sgr 0)"
 	echo "-l=ltc (install litecoin daemon)"
 	echo "-d=dash (install dashcoin daemon)"
