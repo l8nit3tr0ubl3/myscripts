@@ -18,7 +18,7 @@ usage() {
 	echo "-K=KDE (install kde alongside unity)"
 	echo "-X=XFCE (install xfce alongside unity)"
 	echo "-L=LXDE (install lxde alongside unity)"
-	echo "-G=GNOME (install gnome alongside unity)"
+	echo "-G=GNOME (jinstall gnome alongside unity)"
 	echo "$(tput setaf 2)$(tput setab 7)CRYPTOCOIN FUNCTIONS - RUN AS NORMAL USER$(tput sgr 0)"
 	echo "-l=ltc (install litecoin daemon)"
 	echo "-d=dash (install dashcoin daemon)"
@@ -36,7 +36,7 @@ usage() {
 	echo "$(tput setaf 2)$(tput setab 7)MEDIA FUNCTION - RUN WITH SUDO$(tput sgr 0)"
 	echo "-k=kodi (install kodi/xbmc)"
 	echo "$(tput setaf 2)$(tput setab 7)GAMING EMULATION FUNCTIONS - RUN WITH SUDO$(tput sgr 0)"
-	echo "-e=emuFull (install 10 console emulators)"
+	echo "-e=emuFull (install 16 console emulators)"
 	echo "---------------------------------------------------------------------------"
 	echo "$(tput setaf 1)$(tput setab 7)example: sudo AIO -i && aio -A$(tput sgr 0)"
 	echo "Will install AIO to /usr/bin and then add NOMP+6 cryptocoins."
@@ -649,7 +649,7 @@ zetacoin() {
 	ending
 }
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "Skhausneic1lbAdwtTNKLXG?:" opt; do
+while getopts "Skhoausneic1lbAdwtTNKLXG?:" opt; do
      case "$opt" in
         h) usage
            exit 0
