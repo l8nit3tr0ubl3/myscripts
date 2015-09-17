@@ -343,6 +343,7 @@ nomp() {
 		echo "Installing NOMP+LTC+DASH+dependancies"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
+		sudo apt-get install build-essential libssl-dev libminiupnpc-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool g++ -y
 		sudo apt-get install curl -y
 		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
 		sudo apt-get install --yes nodejs
@@ -381,6 +382,7 @@ nomp1() {
 		echo "Installing NOMP+dependancies"
 		echo "---------------------------------------------------------------------------"
 		cd ~/
+		sudo apt-get install build-essential libssl-dev libminiupnpc-dev libdb5.1-dev libdb5.1++-dev libboost-all-dev git autoconf automake libtool g++ -y
 		sudo apt-get install curl -y
 		curl --silent --location https://deb.nodesource.com/setup_0.10 | sudo bash -
 		sudo apt-get install --yes nodejs
