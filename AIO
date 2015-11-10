@@ -37,6 +37,8 @@ usage() {
 	echo "-k=kodi (install kodi/xbmc)"
 	echo "$(tput setaf 2)$(tput setab 7)GAMING EMULATION FUNCTIONS - RUN WITH SUDO$(tput sgr 0)"
 	echo "-e=emuFull (install 16 console emulators)"
+	echo "$(tput setaf 2)$(tput setab 7)ANDROID DEV FUNCTIONS$(tput sgr 0)"
+	echo "-p=AOSP (Download and install Android AOSP and requirements)"
 	echo "---------------------------------------------------------------------------"
 	echo "$(tput setaf 1)$(tput setab 7)example: sudo AIO -i && aio -A$(tput sgr 0)"
 	echo "Will install AIO to /usr/bin and then add NOMP+6 cryptocoins."
@@ -112,6 +114,15 @@ allcoins() {
 		echo "DO NOT RUN THIS OPTION AS SUDO/ROOT, PLEASE RE-RUN AS USER"
 		echo "---------------------------------------------------------------------------"
 		exit 1
+	fi
+}
+aosp() {
+	if [[ $EUID -ne 0 ]]; then
+		sh aosp-install.sh
+	else
+		echo "Please run as normal user, you will be prompted for root when needed." 2>&1
+  		exit 1
+
 	fi
 }
 cgminer() {
@@ -651,9 +662,12 @@ zetacoin() {
 	ending
 }
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.  It is a good idea to make this local in a function.
-while getopts "Skhoausneic1lbAdwtTNKLXG?:" opt; do
+while getopts "Skhoausneic1lbAdwtTNKLXGp?:" opt; do
      case "$opt" in
         h) usage
+           exit 0
+           ;;
+        p) aosp
            exit 0
            ;;
         K) KDE
