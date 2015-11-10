@@ -29,27 +29,27 @@ echo "----------------------------------------"
 mkdir ~/WORKING_DIRECTORY
 cd ~/WORKING_DIRECTORY
 PS3='Please enter your choice: '
-options="4.2.2_r1" "4.4.4_r1" "5.0.1_r1" "5.1.1_r9" "6.0.0_r2" "Continue Install"
+options=("4.2.2" "4.4.4" "5.0.1" "5.1.1" "6.0.0" "Continue Install")
 select opt in "${options[@]}"
 do
     case $opt in
-        "4.2.2_r1")
+        "4.2.2")
             repo init -u https://android.googlesource.com/platform/manifest -b android-4.2.2_r1
 	    break
             ;;
-        "4.4.4_r1")
+        "4.4.4")
             repo init -u https://android.googlesource.com/platform/manifest -b android-4.4.4_r1
 	    break
             ;;
-        "5.0.1_r1")
+        "5.0.1")
             repo init -u https://android.googlesource.com/platform/manifest -b android-5.0.1_r1
             break
             ;;
-	"5.1.1_r9")
+	"5.1.1")
             repo init -u https://android.googlesource.com/platform/manifest -b android-5.1.1_r9
 	    break
             ;;
-	"6.0.0_r2")
+	"6.0.0")
             repo init -u https://android.googlesource.com/platform/manifest -b android-6.0.0_r2
 	    break
             ;;
