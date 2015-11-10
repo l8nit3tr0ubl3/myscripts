@@ -118,8 +118,7 @@ allcoins() {
 }
 aosp() {
 	if [[ $EUID -ne 0 ]]; then
-		sudo chmod +x aosp-install
-		./aosp-install
+		sh aosp-install.sh
 	else
 		echo "Please run as normal user, you will be prompted for root when needed." 2>&1
   		exit 1
